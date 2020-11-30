@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-<div class="containter">
+    <div class="containter">
         @if (Session::has('info'))
             <div class="info-block">
                 {{ Session::get('info') }}
@@ -12,7 +12,9 @@
                 @error('name')
                     <div class="error">{{ $message }}</div>
                 @enderror
-                <input type="text" name="name" placeholder="Начните писать задачу ..." oninput="checkFilter()" autocomplete="off">
+                <input type="text" name="name" placeholder="Начните писать задачу ..." oninput="checkFilter()"
+                    autocomplete="off">
+                <input class="hide" type="text" name="description" id="" placeholder="Краткое описание ..." autocomplete="off">
                 <div class="bottom-buttons">
                     <input type="submit" value="+">
                     <input type="button" value="x" onclick="clearInput()">
@@ -27,7 +29,12 @@
                             {{ $item->likes }}
                         </button>
                     </div>
-                    <div class="task-name">{{ $item->name }}</div>
+                    <div class="text-block">
+                        <div class="task-name">{{ $item->name }}</div>
+                        @if ($item->description != '')
+                            <div class="description">{{ $item->description }}</div>
+                        @endif
+                    </div>
                 </div>
             @endforeach
         </div>
@@ -35,12 +42,11 @@
 @endsection
 
 <script>
-
-    function ajax (
-            url,
-            data,
-            callBack = null
-        ) {
+    function ajax(
+        url,
+        data,
+        callBack = null
+    ) {
         fetch(url, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,25 +72,36 @@
 
     function setLike(id) {
         let likeElem = event.target
-        ajax ('setLike', {id:id}, function (result){
+        ajax('setLike', {
+            id: id
+        }, function(result) {
             if (result) {
-                let oldCount=likeElem.getAttribute('likes')
-                let newCount = Number(oldCount)+1
+                let oldCount = likeElem.getAttribute('likes')
+                let newCount = Number(oldCount) + 1
                 likeElem.setAttribute('likes', newCount)
-                likeElem.innerHTML=newCount
+                likeElem.innerHTML = newCount
             }
         })
     }
 
     function checkFilter() {
         let inputText = document.querySelector('input[name="name"]').value
-        document.querySelectorAll('.task-name').forEach (el=>{
-            if (el.innerHTML.toLowerCase().indexOf(inputText.toLowerCase())>=0 && inputText.length >1) {
-                el.classList.add ('activeFilter')
+        let descriptionElem = document.querySelector('input[name="description"]')
+
+        console.log (inputText == '')
+        if (inputText == '') {
+            descriptionElem.classList.add('hide')
+        } else {
+            if (descriptionElem.classList.contains('hide')) descriptionElem.classList.remove('hide');
+        }
+
+        document.querySelectorAll('.task-name').forEach(el => {
+            if (el.innerHTML.toLowerCase().indexOf(inputText.toLowerCase()) >= 0 && inputText.length > 1) {
+                el.classList.add('activeFilter')
             } else {
                 if (el.classList.contains('activeFilter')) el.classList.remove('activeFilter');
             }
-            
+
         })
     }
 
@@ -92,4 +109,5 @@
         document.querySelector('input[name="name"]').value = ''
         checkFilter()
     }
+
 </script>

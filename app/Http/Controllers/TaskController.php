@@ -31,6 +31,7 @@ class TaskController extends Controller
 
         DB::table('Tasks')->insert([
             'name' => $request->name,
+            'description' => $request->description,
         ]);
         return redirect()->back()->with('info', 'Задача "' . $request->name . '" добавлена!');
     }

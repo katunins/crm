@@ -47,6 +47,7 @@ button {
     border: none;
 }
 
+
 .task-group {
     display: flex;
     align-items: center ;
@@ -74,10 +75,18 @@ button {
     opacity: 0.5;
 }
 
-.task-name {
+.text-block {
     margin-left: 10px;
+}
+
+.description {
+    font-size: 13px;
+    color: grey;
+}
+
+.task-name {
     font-size: 18px;
-    padding: 5px;
+    /* padding: 5px; */
     border-radius: 5px;
 }
 
@@ -95,4 +104,25 @@ button {
 .error {
     text-align: center;
     color: red;
+}
+
+
+input[name="description"]{
+    outline: none;
+    width: 100%;
+    border: none;
+    padding: 10px 20px;
+    background-color: #f7f7f7;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 10px;
+    transition: 0.5s ease-in-out;
+}
+
+.hide {
+    height: 0px !important;
+    /* width: 0px !important; */
+    margin: 0 !important;
+    padding: 0px !important;
+    transition: 0.5s ease-in-out;
 }
