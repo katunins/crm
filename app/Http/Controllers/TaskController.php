@@ -11,8 +11,8 @@ class TaskController extends Controller
     // Возвращает коллекцию с задачами и likes
     static function getTasks()
     {
-        $tasks = DB::table('tasks')->get();
-        $likesArr = DB::table('likes')->get();
+        $tasks = DB::table('Tasks')->get();
+        $likesArr = DB::table('Likes')->get();
 
         foreach ($tasks as $key => $task) {
             $task->likes = $likesArr->where('taskId', $task->id)->count(); //->setAttribute('likes', 3);
