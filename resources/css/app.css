@@ -116,6 +116,7 @@ input[name="description"]{
     text-align: center;
     font-size: 14px;
     margin-bottom: 10px;
+    opacity: 1;
     transition: 0.5s ease-in-out;
 }
 
@@ -124,5 +125,6 @@ input[name="description"]{
     /* width: 0px !important; */
     margin: 0 !important;
     padding: 0px !important;
+    opacity: 0;
     transition: 0.5s ease-in-out;
 }
