@@ -29,7 +29,7 @@ class TaskController extends Controller
         ]);
 
 
-        DB::table('tasks')->insert([
+        DB::table('Tasks')->insert([
             'name' => $request->name,
         ]);
         return redirect()->back()->with('info', 'Задача "' . $request->name . '" добавлена!');
@@ -38,12 +38,12 @@ class TaskController extends Controller
     public function setLike(Request $request)
     {
         $token = Session::get('_token');
-        $likesDublicates = DB::table('likes')->where([
+        $likesDublicates = DB::table('Likes')->where([
             'taskId' => $request->id,
             'userId' => $token
         ])->get()->count();
-        $likesDublicates = 0;
-        if ($likesDublicates == 0) DB::table('likes')->insert([
+        // $likesDublicates = 0;
+        if ($likesDublicates == 0) DB::table('Likes')->insert([
             'taskId' => $request->id,
             'userId' => $token
         ]);
